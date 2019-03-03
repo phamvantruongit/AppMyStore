@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ActivityAddProduct">
+    <org.angmarch.views.NiceSpinner
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/nice_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <View
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/view"
+        android:layout_below="@+id/nice_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
+    <TableLayout
+        android:layout_below="@+id/view"
+        android:id="@+id/tb"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_marginTop="15dp"
+            >
+
+            <TextView
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mã vạch" />
+
+            <EditText
+                android:textColor="@color/black"
+                android:enabled="false"
+                android:id="@+id/edMaVach"
+                android:singleLine="true"
+                android:padding="5dp"
+                android:background="@drawable/boder_item_top"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                />
+        </TableRow>
+
+
+           <RelativeLayout
+               android:layout_marginTop="15dp"
+               android:layout_width="match_parent"
+               >
+               <TextView
+                   android:id="@+id/tvQuetMaVach"
+                   android:textColor="@color/black"
+                   android:gravity="center"
+                   android:background="@drawable/boder_item_top"
+                   android:padding="5dp"
+                   android:layout_width="115dp"
+                   android:layout_height="wrap_content"
+                   android:text="Quét mã vạch" />
+               <TextView
+                   android:id="@+id/tvTaoMaVach"
+                   android:textColor="@color/black"
+                   android:gravity="center"
+                   android:background="@drawable/boder_item_top"
+                   android:layout_alignParentRight="true"
+                   android:padding="5dp"
+                   android:layout_width="115dp"
+                   android:layout_height="wrap_content"
+                   android:text="Tạo mã vạch" />
+           </RelativeLayout>
+
+        <TableRow
+            android:layout_marginTop="15dp"
+            >
+
+            <TextView
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tên sản phẩm" />
+
+            <EditText
+                android:id="@+id/edTenSP"
+                android:padding="5dp"
+                android:background="@drawable/boder_item_top"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                />
+        </TableRow>
+        <TableRow
+            android:layout_marginTop="15dp"
+            >
+
+            <TextView
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Giá nhập" />
+
+            <EditText
+                android:id="@+id/edGiaNhap"
+                android:singleLine="true"
+                android:padding="5dp"
+                android:inputType="number"
+                android:background="@drawable/boder_item_top"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="15dp"
+            >
+
+            <TextView
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Giá bán" />
+
+            <EditText
+                android:id="@+id/edGiaBan"
+                android:inputType="number"
+                android:singleLine="true"
+                android:padding="5dp"
+                android:background="@drawable/boder_item_top"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_marginTop="15dp"
+            >
+
+            <TextView
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Số lượng" />
+
+            <EditText
+                android:id="@+id/edSoLuong"
+                android:inputType="number"
+                android:singleLine="true"
+                android:padding="5dp"
+                android:background="@drawable/boder_item_top"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="15dp"
+            >
+
+            <TextView
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Size" />
+
+            <EditText
+                android:id="@+id/edSize"
+                android:singleLine="true"
+                android:padding="5dp"
+                android:background="@drawable/boder_item_top"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnThemMoi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Thêm mới" />
+
+            <Button
+                android:id="@+id/btnHuyBo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Hủy bỏ" />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>
