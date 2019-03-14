@@ -74,6 +74,7 @@ public class FragmentTypeProduct extends BaseFragment {
            Dialog dialog = new Dialog(getActivity());
            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
            dialog.setContentView(R.layout.popup_add_loaisp);
+           dialog.setCancelable(false);
            dialog.show();
            EditText edName = dialog.findViewById(R.id.edTenLoaiSP);
            TextView tv_Them = dialog.findViewById(R.id.btn_them);
