@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vn.com.phamtruongit.appmystore.data.Product;
+import vn.com.phamtruongit.appmystore.data.TypeProduct;
 
 public class ActivityAddProduct extends AppCompatActivity {
     @BindView(R.id.edMaVach)
@@ -47,6 +50,7 @@ public class ActivityAddProduct extends AppCompatActivity {
     NiceSpinner nice_spinner;
 
     private String code="";
+    private int id_type=1;
 
 
     @Override
@@ -60,16 +64,22 @@ public class ActivityAddProduct extends AppCompatActivity {
     private void init() {
 
         List<String> list=new ArrayList<>();
-        list.add(new String("Quần "));
-        list.add(new String("Giầy dép"));
-        list.add(new String("Quần "));
-        list.add(new String("Giầy dép"));
-        list.add(new String("Quần "));
-        list.add(new String("Giầy dép"));
-        list.add(new String("Quần "));
-        list.add(new String("Giầy dép áo sơ mi"));
-        nice_spinner.attachDataSource(list);
-        nice_spinner.setSelectedIndex(3);
+        List<TypeProduct> typeProductList=ApplicationMyStore.db.typeProductDao().getListTypeProduct();
+        for(TypeProduct typeProduct: typeProductList){
+             list.add(typeProduct.name);
+        }
+        if(list.size()>0){
+            nice_spinner.attachDataSource(list);
+            nice_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                   position++;
+                   id_type=position;
+                }
+            });
+        }
+
+
 
         btnThemMoi.setOnClickListener(v->{
             String mavach=edMaVach.getText().toString();
@@ -108,7 +118,8 @@ public class ActivityAddProduct extends AppCompatActivity {
                 product.size=size;
             }
            product.date=strnowtime;
-           product.id_type_product=1;
+           product.id_type_product=id_type;
+           Log.d("ID",id_type+"");
            ApplicationMyStore.db.productDao().insertProduct(product);
 
 

@@ -21,9 +21,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import vn.com.phamtruongit.appmystore.data.TypeProduct;
 import vn.com.phamtruongit.appmystore.fragment.FragmentHome;
@@ -54,7 +56,9 @@ public class MainActivity extends AppCompatActivity
             fragment = new FragmentHome();
             loadFrament(fragment);
         }
-         updateApp();
+        // updateApp();
+
+
     }
 
     private void updateApp() {
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity
                 dialog.dismiss();
             }
         });
+
         tvGoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,6 +145,13 @@ public class MainActivity extends AppCompatActivity
                     dialog.dismiss();
                     fragment = new FragmentTypeProduct();
                     loadFrament(fragment);
+                });
+
+                tv_Huy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
                 });
             } else {
                 Intent intent = new Intent(MainActivity.this, ActivityAddProduct.class);
