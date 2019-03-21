@@ -1,28 +1,46 @@
 package vn.com.phamtruongit.appmystore.view;
 
 import android.app.Dialog;
-import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import vn.com.phamtruongit.appmystore.ActivityAddProduct;
+import java.util.List;
+
+import butterknife.BindView;
 import vn.com.phamtruongit.appmystore.ApplicationMyStore;
-import vn.com.phamtruongit.appmystore.MainActivity;
 import vn.com.phamtruongit.appmystore.R;
+import vn.com.phamtruongit.appmystore.adapter.AdapterLoaiSP;
 import vn.com.phamtruongit.appmystore.data.TypeProduct;
-import vn.com.phamtruongit.appmystore.fragment.FragmentTypeProduct;
+
 
 
 public class CategoryActivity extends BaseActivity {
+
+    AdapterLoaiSP adapterLoaiSP;
+    @BindView(R.id.rv_product)
+    RecyclerView rvProduct;
+    RecyclerView.LayoutManager layoutManager;
+    List<TypeProduct> productList;
     @Override
     void onCreate() {
+        getData();
 
+    }
+
+    private void getData(){
+        layoutManager=new LinearLayoutManager(this);
+        productList= ApplicationMyStore.db.typeProductDao().getListTypeProduct();
+        adapterLoaiSP=new AdapterLoaiSP(this,productList);
+        rvProduct.setLayoutManager(layoutManager);
+        rvProduct.setAdapter(adapterLoaiSP);
+        adapterLoaiSP.notifyDataSetChanged();
     }
 
     @Override
@@ -65,6 +83,7 @@ public class CategoryActivity extends BaseActivity {
                 typeProduct.name = name;
                 ApplicationMyStore.db.typeProductDao().insertTypeProduct(typeProduct);
                 dialog.dismiss();
+                getData();
             });
 
             tv_Huy.setOnClickListener(v->{
@@ -75,4 +94,5 @@ public class CategoryActivity extends BaseActivity {
 
         return true;
     }
+
 }

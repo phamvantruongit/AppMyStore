@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/module_manager_sell"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
         android:id="@+id/tvHoatDongBanHang"

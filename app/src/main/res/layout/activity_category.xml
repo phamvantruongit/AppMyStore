@@ -6,11 +6,19 @@
     android:orientation="vertical"
    >
 
-    <include
-        layout="@layout/element_bottom_navigation"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        />
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_product"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <include
+            layout="@layout/element_bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            />
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

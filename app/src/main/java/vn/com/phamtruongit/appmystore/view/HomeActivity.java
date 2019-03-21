@@ -18,4 +18,5 @@ public class HomeActivity extends BaseActivity {
     int getNavigationMenuItemId() {
         return R.id.navigation_home;
     }
+
 }
