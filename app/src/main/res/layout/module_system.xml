@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+   >
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/tvBaoCao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="He thong"
+        app:layout_constraintTop_toBottomOf="@id/view4" />
+
+    <RelativeLayout
+        android:id="@+id/rl08"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tvBaoCao">
+
+        <ImageView
+            android:id="@+id/imgHome8"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_home" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/imgHome8"
+            android:text="Thong tin cua hang" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl09"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/rl08">
+
+        <ImageView
+            android:id="@+id/imgHome9"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_home" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/imgHome9"
+            android:text="Nhan vien" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/rl09">
+
+        <ImageView
+            android:id="@+id/imgHome10"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_home" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/imgHome10"
+            android:text="File" />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

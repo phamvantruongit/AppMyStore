@@ -5,6 +5,11 @@ import vn.com.phamtruongit.appmystore.view.BaseActivity;
 
 public class HomeActivity extends BaseActivity {
     @Override
+    void onCreate() {
+
+    }
+
+    @Override
     protected int getContentViewId() {
         return R.layout.activity_home;
     }

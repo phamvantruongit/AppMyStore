@@ -4,6 +4,11 @@ import vn.com.phamtruongit.appmystore.R;
 
 public  class ProductActivity  extends BaseActivity {
     @Override
+    void onCreate() {
+
+    }
+
+    @Override
     protected int getContentViewId() {
         return R.layout.activity_products;
     }

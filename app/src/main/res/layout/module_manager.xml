@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/rl03" />
+
+    <TextView
+        android:id="@+id/tvHangHoa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Quan ly"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view1" />
+
+    <RelativeLayout
+        android:id="@+id/rl04"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tvHangHoa">
+
+        <ImageView
+            android:id="@+id/imgHome4"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_home" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/imgHome4"
+            android:text="Khach hang" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl05"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/rl04">
+
+        <ImageView
+            android:id="@+id/imgHome5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_home" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/imgHome5"
+            android:text="Chi phi" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl06"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/rl05">
+
+        <ImageView
+            android:id="@+id/imgHome6"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_home" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/imgHome6"
+            android:text="Nha cung cap" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl07"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/rl06">
+
+        <ImageView
+            android:id="@+id/imgHome7"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_home" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/imgHome7"
+            android:text="Mua hang tu nha cung cap" />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

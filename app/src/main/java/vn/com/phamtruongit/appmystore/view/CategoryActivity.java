@@ -21,6 +21,11 @@ import vn.com.phamtruongit.appmystore.fragment.FragmentTypeProduct;
 
 public class CategoryActivity extends BaseActivity {
     @Override
+    void onCreate() {
+
+    }
+
+    @Override
     protected int getContentViewId() {
         return R.layout.activity_category;
     }
