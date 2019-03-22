@@ -111,8 +111,9 @@ public class ActivityAddProduct extends AppCompatActivity {
                 Toast.makeText(this, "Nhập đầy đủ thông tin ", Toast.LENGTH_SHORT).show();
                 return;
             }
-            int GiaNhap= Integer.parseInt(gianhap);
-            int GiaBan= Integer.parseInt(giaban);
+
+            double GiaNhap= Double.parseDouble(gianhap);
+            double GiaBan= Double.parseDouble(giaban);
             if(GiaBan<GiaNhap){
                 Toast.makeText(this, "Giá bán phải >= giá nhập", Toast.LENGTH_SHORT).show();
                 return;
