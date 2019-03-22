@@ -3,9 +3,11 @@ package vn.com.phamtruongit.appmystore.data;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 @Entity
-public class Product {
+public class Product implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -35,7 +37,48 @@ public class Product {
    @ColumnInfo(name = "id_type_product")
     public int id_type_product;
 
+    public Product() {
+    }
 
+    protected Product(Parcel in) {
+        id = in.readInt();
+        code = in.readString();
+        name = in.readString();
+        size = in.readString();
+        quantity = in.readInt();
+        price_in = in.readDouble();
+        price_out = in.readDouble();
+        date = in.readString();
+        id_type_product = in.readInt();
+    }
 
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
 
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(code);
+        dest.writeString(name);
+        dest.writeString(size);
+        dest.writeInt(quantity);
+        dest.writeDouble(price_in);
+        dest.writeDouble(price_out);
+        dest.writeString(date);
+        dest.writeInt(id_type_product);
+    }
 }

@@ -1,6 +1,12 @@
-package vn.com.phamtruongit.appmystore;
+package vn.com.phamtruongit.appmystore.view;
 
-import android.os.TestLooperManager;
+
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,9 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.angmarch.views.NiceSpinner;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +26,8 @@ import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import vn.com.phamtruongit.appmystore.ApplicationMyStore;
+import vn.com.phamtruongit.appmystore.R;
 import vn.com.phamtruongit.appmystore.data.Product;
 import vn.com.phamtruongit.appmystore.data.TypeProduct;
 
@@ -51,17 +57,32 @@ public class ActivityAddProduct extends AppCompatActivity {
 
     private String code="";
     private int id_type=1;
+    Product product=null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent=getIntent();
+        boolean checkData=intent.getBooleanExtra("sendData",false);
+        if(checkData){
+            Bundle bundle=intent.getBundleExtra("product");
+            product=bundle.getParcelable("product");
+        }
         setContentView(R.layout.activity_add_product);
         ButterKnife.bind(this);
-        init();
+        init(product);
     }
 
-    private void init() {
+    private void init(Product products) {
+
+        if(products!=null){
+            edTenSP.setText(products.name);
+            edGiaNhap.setText(products.price_in+"");
+            edGiaBan.setText(products.price_out+"");
+            edSoLuong.setText(products.quantity+"");
+            edSize.setText(products.size!=null  ? products.size : "");
+        }
 
         List<String> list=new ArrayList<>();
         List<TypeProduct> typeProductList=ApplicationMyStore.db.typeProductDao().getListTypeProduct();
@@ -70,18 +91,15 @@ public class ActivityAddProduct extends AppCompatActivity {
         }
         if(list.size()>0){
             nice_spinner.attachDataSource(list);
-            nice_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                   position++;
-                   id_type=position;
-                }
+            nice_spinner.addOnItemClickListener((parent, view, position, id) -> {
+                position++;
+                id_type=position;
             });
         }
 
 
 
-        btnThemMoi.setOnClickListener(v->{
+        btnThemMoi.setOnClickListener( v-> {
             String mavach=edMaVach.getText().toString();
             String tensp=edTenSP.getText().toString();
             String gianhap=edGiaNhap.getText().toString();
@@ -122,10 +140,6 @@ public class ActivityAddProduct extends AppCompatActivity {
            Log.d("ID",id_type+"");
            ApplicationMyStore.db.productDao().insertProduct(product);
 
-
-
-
-
         });
 
 
@@ -141,6 +155,40 @@ public class ActivityAddProduct extends AppCompatActivity {
                 edMaVach.setText(code);
             }
         });
+
+        tvQuetMaVach.setOnClickListener(v->{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+                int checkCallPhonePermission2 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                int checkCallPhonePermission3 = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+
+                if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED && checkCallPhonePermission2 != PackageManager.PERMISSION_GRANTED && checkCallPhonePermission3 != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 100);
+                    return;
+                } else {
+                    Intent intent = new Intent(this, QRCodeScannerActivity.class);
+                    startActivityForResult(intent, 100);
+                }
+
+            }
+            Intent intent = new Intent(this, QRCodeScannerActivity.class);
+            startActivityForResult(intent, 100);
+        });
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 100) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(this, QRCodeScannerActivity.class);
+                startActivityForResult(intent, 100);
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
     }
 }

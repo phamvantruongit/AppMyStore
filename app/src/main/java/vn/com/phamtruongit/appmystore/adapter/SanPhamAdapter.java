@@ -14,6 +14,7 @@ import java.util.List;
 
 import vn.com.phamtruongit.appmystore.R;
 import vn.com.phamtruongit.appmystore.data.Product;
+import vn.com.phamtruongit.appmystore.view.Interface.OnClickItem;
 
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHolder> {
@@ -22,13 +23,13 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
     boolean check;
     //Database database;
     Context context;
+    OnClickItem onClickItem;
 
-
-    public SanPhamAdapter(List<Product> list){
+    public SanPhamAdapter(List<Product> list ,OnClickItem item){
         listMain=list;
 
        // database=new Database(context);
-
+       onClickItem=item;
     }
 
 
@@ -72,6 +73,9 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
                 }
 
             }
+        });
+        viewHolder.itemView.setOnClickListener(v -> {
+            onClickItem.onClichItem(listMain.get(position));
         });
 
 

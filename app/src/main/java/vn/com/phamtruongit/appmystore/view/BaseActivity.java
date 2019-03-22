@@ -20,13 +20,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
 
     protected BottomNavigationView navigationView;
     Unbinder unbinder;
-    @Nullable
-    @BindView(R.id.tvTitleApp)
-    TextView tvTitleApp;
-
-    @Nullable
-    @BindView(R.id.ivRight)
-    ImageView ivRight;
+//    @Nullable
+//    @BindView(R.id.tvTitleApp)
+//    TextView tvTitleApp;
+//
+//    @Nullable
+//    @BindView(R.id.ivRight)
+//    ImageView ivRight;
 
 
     @Override
@@ -47,8 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
     protected void onStart() {
         super.onStart();
         updateNavigationBarState();
-        this.overridePendingTransition(R.anim.anim_slide_in_right,
-                R.anim.anim_slide_out_right);//Left to right
+
     }
 
     @Override
@@ -113,8 +112,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
-        finish();
     }
 }

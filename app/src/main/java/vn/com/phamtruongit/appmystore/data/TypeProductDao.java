@@ -13,4 +13,7 @@ public interface TypeProductDao {
 
     @Query("SELECT * FROM TypeProduct ")
     List<TypeProduct> getListTypeProduct();
+
+
+
 }
