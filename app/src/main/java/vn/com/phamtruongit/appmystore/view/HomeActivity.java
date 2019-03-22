@@ -1,19 +1,57 @@
 package vn.com.phamtruongit.appmystore.view;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.support.v4.app.ShareCompat;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import butterknife.BindView;
+import vn.com.phamtruongit.appmystore.ApplicationMyStore;
 import vn.com.phamtruongit.appmystore.R;
-import vn.com.phamtruongit.appmystore.view.BaseActivity;
+import vn.com.phamtruongit.appmystore.data.Product;
 
 public class HomeActivity extends BaseActivity {
+    //https://www.journaldev.com/12478/android-searchview-example-tutorial
+    @BindView(R.id.searchview)
+    SearchView searchview;
+
+    @BindView(R.id.rv_product)
+    RecyclerView rv_product;
+
+    RecyclerView.LayoutManager layoutManager;
+
     @Override
     void onCreate() {
+
+
+        searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Product product=ApplicationMyStore.db.productDao().searhProduct(query.trim());
+                if(product!=null){
+                    Log.d("Product",product.name + product.code +"--");
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     @Override
@@ -74,4 +112,48 @@ public class HomeActivity extends BaseActivity {
     }
 
 
+    public void OpenQrcode(View view) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+            int checkCallPhonePermission2 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            int checkCallPhonePermission3 = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+
+            if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED && checkCallPhonePermission2 != PackageManager.PERMISSION_GRANTED && checkCallPhonePermission3 != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 100);
+                return;
+            } else {
+                Intent intent = new Intent(this, QRCodeScannerActivity.class);
+                startActivityForResult(intent, 100);
+            }
+
+        }
+        Intent intent = new Intent(this, QRCodeScannerActivity.class);
+        startActivityForResult(intent, 100);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 100) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(this, QRCodeScannerActivity.class);
+                startActivityForResult(intent, 100);
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_product,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
 }

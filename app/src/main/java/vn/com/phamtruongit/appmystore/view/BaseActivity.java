@@ -1,10 +1,12 @@
 package vn.com.phamtruongit.appmystore.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,23 +22,18 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
 
     protected BottomNavigationView navigationView;
     Unbinder unbinder;
-//    @Nullable
-//    @BindView(R.id.tvTitleApp)
-//    TextView tvTitleApp;
-//
-//    @Nullable
-//    @BindView(R.id.ivRight)
-//    ImageView ivRight;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
+
         unbinder=  ButterKnife.bind(this);
         navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
         onCreate();
+
 
     }
 
@@ -111,9 +108,24 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-        this.overridePendingTransition(R.anim.anim_slide_in_left,
-                R.anim.anim_slide_out_left);
+        //super.onBackPressed();
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setMessage("Do you want to exit ?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               overridePendingTransition(R.anim.anim_slide_in_left,
+                        R.anim.anim_slide_out_left);
+               finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                 dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 }

@@ -12,18 +12,18 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.layout_search_view);
 
-        Handler handler=new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(SplashActivity.this,HomeActivity.class));
-                overridePendingTransition(R.anim.anim_slide_in_right,
-                        R.anim.anim_slide_out_right);//Left to right
-                finish();
-
-            }
-        },1500);
+//        Handler handler=new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                startActivity(new Intent(SplashActivity.this,HomeActivity.class));
+//                overridePendingTransition(R.anim.anim_slide_in_right,
+//                        R.anim.anim_slide_out_right);//Left to right
+//                finish();
+//
+//            }
+//        },1500);
     }
 }
