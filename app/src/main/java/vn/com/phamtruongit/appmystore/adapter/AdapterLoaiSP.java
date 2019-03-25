@@ -12,14 +12,16 @@ import java.util.List;
 
 import vn.com.phamtruongit.appmystore.R;
 import vn.com.phamtruongit.appmystore.data.TypeProduct;
+import vn.com.phamtruongit.appmystore.data.interfaces.ItemAdapter;
 
 public class AdapterLoaiSP extends RecyclerView.Adapter<AdapterLoaiSP.ViewHolder> {
     Context context;
     List<TypeProduct> listLoaiSP;
-
-    public AdapterLoaiSP(Context context, List<TypeProduct> listLoaiSP) {
+    ItemAdapter itemAdapter;
+    public AdapterLoaiSP(Context context, List<TypeProduct> listLoaiSP,ItemAdapter iOnClick) {
         this.context = context;
         this.listLoaiSP = listLoaiSP;
+        this.itemAdapter=iOnClick;
     }
 
     @NonNull
@@ -32,6 +34,9 @@ public class AdapterLoaiSP extends RecyclerView.Adapter<AdapterLoaiSP.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
        viewHolder.tv_loaisp.setText(listLoaiSP.get(i).name);
+       viewHolder.itemView.setOnClickListener(v->{
+           itemAdapter.itemAdapter(listLoaiSP.get(i),i);
+       });
     }
 
     @Override
@@ -46,4 +51,5 @@ public class AdapterLoaiSP extends RecyclerView.Adapter<AdapterLoaiSP.ViewHolder
             tv_loaisp=itemView.findViewById(R.id.tv_loaisp);
         }
     }
+
 }
