@@ -3,21 +3,16 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-   <FrameLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
-       <android.support.v7.widget.RecyclerView
-           android:id="@+id/rv_product"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"/>
-       <include
-           layout="@layout/element_bottom_navigation"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_gravity="bottom"
-           />
-   </FrameLayout>
+    android:orientation="vertical">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_product"
+        android:layout_width="match_parent"
+        android:layout_height="500dp" />
+
+    <include
+        layout="@layout/element_bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
 </android.support.design.widget.CoordinatorLayout>

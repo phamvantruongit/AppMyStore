@@ -34,7 +34,7 @@ public  class ProductActivity  extends BaseActivity implements OnClickItem {
     protected void onResume() {
         super.onResume();
         List<Product> productList= ApplicationMyStore.db.productDao().getListProduct();
-        sanPhamAdapter=new SanPhamAdapter(productList,this);
+        sanPhamAdapter=new SanPhamAdapter(productList,this,false);
         layoutManager=new LinearLayoutManager(this);
         rvProduct.setLayoutManager(layoutManager);
         rvProduct.setAdapter(sanPhamAdapter);
@@ -52,7 +52,7 @@ public  class ProductActivity  extends BaseActivity implements OnClickItem {
     }
 
     @Override
-    public void onClichItem(Object object) {
+    public void onClichItem(Object object ,int postion) {
         Product product= (Product) object;
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -90,6 +90,8 @@ public  class ProductActivity  extends BaseActivity implements OnClickItem {
         });
 
         dialog.findViewById(R.id.tvXoaSP).setOnClickListener(v->{
+            ApplicationMyStore.db.productDao().deleteProduct(product.id);
+            sanPhamAdapter.notifyItemRemoved(postion);
             dialog.dismiss();
         });
     }

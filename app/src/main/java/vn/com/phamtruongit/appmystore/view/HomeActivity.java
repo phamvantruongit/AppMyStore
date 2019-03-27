@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
@@ -23,12 +24,17 @@ import android.widget.Toast;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.notbytes.barcode_reader.BarcodeReaderActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import vn.com.phamtruongit.appmystore.ApplicationMyStore;
 import vn.com.phamtruongit.appmystore.R;
+import vn.com.phamtruongit.appmystore.adapter.SanPhamAdapter;
 import vn.com.phamtruongit.appmystore.data.Product;
+import vn.com.phamtruongit.appmystore.view.Interface.OnClickItem;
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements OnClickItem {
     //https://www.journaldev.com/12478/android-searchview-example-tutorial
     private static final int BARCODE_READER_ACTIVITY_REQUEST = 1208;
 
@@ -37,19 +43,26 @@ public class HomeActivity extends BaseActivity {
 
     @BindView(R.id.rv_product)
     RecyclerView rv_product;
+    SanPhamAdapter sanPhamAdapter;
 
     RecyclerView.LayoutManager layoutManager;
-
+    List<Product> productList;
     @Override
     void onCreate() {
 
+        productList=new ArrayList<>();
 
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Product product=ApplicationMyStore.db.productDao().searhProduct(query.trim());
-                if(product!=null){
-                    Log.d("Product",product.name + product.code +"--");
+                String search= "%"+query+"%";
+                productList=ApplicationMyStore.db.productDao().searhProduct(search);
+                if(productList.size()>0){
+                    sanPhamAdapter=new SanPhamAdapter(productList,HomeActivity.this,true);
+                    layoutManager=new LinearLayoutManager(HomeActivity.this);
+                    rv_product.setLayoutManager(layoutManager);
+                    rv_product.setAdapter(sanPhamAdapter);
+                    sanPhamAdapter.notifyDataSetChanged();
                 }
                 return false;
             }
@@ -149,8 +162,6 @@ public class HomeActivity extends BaseActivity {
             } else {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
             }
-
-
             return;
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -168,6 +179,15 @@ public class HomeActivity extends BaseActivity {
 
         if (requestCode == BARCODE_READER_ACTIVITY_REQUEST && data != null) {
             Barcode barcode = data.getParcelableExtra(BarcodeReaderActivity.KEY_CAPTURED_BARCODE);
+            Product product=ApplicationMyStore.db.productDao().searhProductBarcode(barcode.rawValue);
+            if(product!=null){
+                productList.add(product);
+                sanPhamAdapter=new SanPhamAdapter(productList,HomeActivity.this,true);
+                layoutManager=new LinearLayoutManager(HomeActivity.this);
+                rv_product.setLayoutManager(layoutManager);
+                rv_product.setAdapter(sanPhamAdapter);
+                sanPhamAdapter.notifyDataSetChanged();
+            }
             Toast.makeText(this, barcode.rawValue, Toast.LENGTH_SHORT).show();
         }
 
@@ -182,5 +202,10 @@ public class HomeActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClichItem(Object object ,int postion) {
+
     }
 }

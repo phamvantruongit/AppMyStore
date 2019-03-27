@@ -112,7 +112,7 @@ public class CategoryActivity extends BaseActivity implements OnClickItem {
     }
 
     @Override
-    public void onClichItem(Object object) {
+    public void onClichItem(Object object ,int position) {
         TypeProduct typeProduct = (TypeProduct) object;
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

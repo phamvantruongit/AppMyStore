@@ -17,5 +17,12 @@ public interface ProductDao {
     //"SELECT * FROM BookContentEntity where id in (:id) "
 
     @Query("SELECT *  FROM Product  WHERE  name LIKE :name ")
-    Product searhProduct(String name);
+    List<Product> searhProduct(String name);
+
+    @Query("SELECT *  FROM Product  WHERE  code LIKE :code ")
+    Product searhProductBarcode(String code);
+
+
+    @Query("DELETE FROM Product where id in (:id)")
+    void deleteProduct(int id);
 }

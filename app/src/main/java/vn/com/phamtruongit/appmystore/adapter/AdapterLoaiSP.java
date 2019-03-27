@@ -35,7 +35,7 @@ public class AdapterLoaiSP extends RecyclerView.Adapter<AdapterLoaiSP.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
        viewHolder.tv_loaisp.setText(listLoaiSP.get(i).name);
        viewHolder.itemView.setOnClickListener(v->{
-           onClickItem.onClichItem(listLoaiSP.get(i));
+           onClickItem.onClichItem(listLoaiSP.get(i),i);
        });
     }
 

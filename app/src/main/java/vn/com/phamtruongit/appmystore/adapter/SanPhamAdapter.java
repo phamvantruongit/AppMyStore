@@ -25,9 +25,9 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
     Context context;
     OnClickItem onClickItem;
 
-    public SanPhamAdapter(List<Product> list ,OnClickItem item){
+    public SanPhamAdapter(List<Product> list ,OnClickItem item , boolean check){
         listMain=list;
-
+        this.check=check;
        // database=new Database(context);
        onClickItem=item;
     }
@@ -43,12 +43,12 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) {
         viewHolder.tvTenSP.setText(listMain.get(position).name);
-//        if(check){
-//            viewHolder.ckbox.setVisibility(View.VISIBLE);
+        if(check){
+            viewHolder.ckbox.setVisibility(View.VISIBLE);
 //            if(listMain.get(position).getStatus().equals("1")){
 //                viewHolder.ckbox.setChecked(true);
 //            }
-//        }
+        }
 
 //        if (listMain.get(position).size.length()>0) {
 //            viewHolder.tv_Size.setVisibility(View.VISIBLE);
@@ -59,7 +59,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
         viewHolder.tvSLSP.setText(listMain.get(position).quantity+"");
         DecimalFormat decimalFormat=new DecimalFormat("###,###,###");
         double gia= listMain.get(position).price_out;
-        viewHolder.tvGia.setText(decimalFormat.format(gia) +"VND");
+        viewHolder.tvGia.setText(decimalFormat.format(gia) +" đ");
 
 
         viewHolder.ckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -67,15 +67,16 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     //database.updateStatus(listMain.get(position).getId(),"1");
-                    iOnClick.iOnClick(listMain.get(position),position);
+                   // iOnClick.iOnClick(listMain.get(position),position);
                 }else {
                    //database.updateStatus(listMain.get(position).getId(),"0");
                 }
 
             }
         });
+
         viewHolder.itemView.setOnClickListener(v -> {
-            onClickItem.onClichItem(listMain.get(position));
+            onClickItem.onClichItem(listMain.get(position) ,position);
         });
 
 
