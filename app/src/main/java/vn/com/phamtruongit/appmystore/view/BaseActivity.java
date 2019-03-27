@@ -35,6 +35,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
         onCreate();
 
 
+
+
     }
 
     abstract void onCreate();

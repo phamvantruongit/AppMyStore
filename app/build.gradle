@@ -23,6 +23,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+repositories{
+    flatDir{
+        dirs 'libs'
+    }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -45,4 +50,6 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
 
     implementation 'me.dm7.barcodescanner:zxing:1.9'
+    implementation 'com.google.android.gms:play-services-vision:15.0.2'
+    implementation (name: 'barcode-reader-debug', ext:'aar')
 }

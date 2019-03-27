@@ -2,10 +2,12 @@ package vn.com.phamtruongit.appmystore.view;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +19,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.vision.barcode.Barcode;
+import com.notbytes.barcode_reader.BarcodeReaderActivity;
+
 import org.angmarch.views.NiceSpinner;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,6 +64,8 @@ public class ActivityAddProduct extends AppCompatActivity {
     private String code="";
     private int id_type=1;
     Product product=null;
+
+    private static final int BARCODE_READER_ACTIVITY_REQUEST = 1208;
 
 
     @Override
@@ -167,29 +175,47 @@ public class ActivityAddProduct extends AppCompatActivity {
                     requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 100);
                     return;
                 } else {
-                    Intent intent = new Intent(this, QRCodeScannerActivity.class);
-                    startActivityForResult(intent, 100);
+                    launchBarCodeActivity();
                 }
 
             }
-            Intent intent = new Intent(this, QRCodeScannerActivity.class);
-            startActivityForResult(intent, 100);
+            launchBarCodeActivity();
         });
 
     }
 
+    private void launchBarCodeActivity() {
+        Intent launchIntent = BarcodeReaderActivity.getLaunchIntent(this, true, false);
+        startActivityForResult(launchIntent, BARCODE_READER_ACTIVITY_REQUEST);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 100) {
+        if (requestCode == BARCODE_READER_ACTIVITY_REQUEST) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Intent intent = new Intent(this, QRCodeScannerActivity.class);
-                startActivityForResult(intent, 100);
+                launchBarCodeActivity();
             } else {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
             }
             return;
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != Activity.RESULT_OK) {
+            Toast.makeText(this, "error in  scanning", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (requestCode == BARCODE_READER_ACTIVITY_REQUEST && data != null) {
+            Barcode barcode = data.getParcelableExtra(BarcodeReaderActivity.KEY_CAPTURED_BARCODE);
+            edMaVach.setText(barcode.rawValue);
+        }
 
     }
 }

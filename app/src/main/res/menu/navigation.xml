@@ -4,20 +4,20 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/icon_home"
-        android:title="" />
+        android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_category"
         android:icon="@drawable/ic_menu_gallery"
-        android:title="" />
+        android:title="@string/title_category" />
 
     <item
         android:id="@+id/navigation_products"
         android:icon="@drawable/ic_menu_slideshow"
-        android:title="" />
+        android:title="@string/title_products" />
 
     <item
         android:id="@+id/navigation_more"
         android:icon="@drawable/icon_more"
-        android:title="" />
+        android:title="@string/title_more" />
 </menu>
