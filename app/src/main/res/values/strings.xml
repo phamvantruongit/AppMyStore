@@ -9,8 +9,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_home">Home</string>
+    <string name="home">Home</string>
+    <string name="sell">Sell Product</string>
     <string name="title_category">Category</string>
     <string name="title_products">Products</string>
     <string name="title_more">More</string>
+
+    <string name="admob_app_id">ca-app-pub-5493814230793829 ~ 8340511253</string>
+    <string name="banner_home_footer">ca-app-pub-5493814230793829/2645331442</string>
+    <string name="interstitial_full_screen">ca-app-pub-5493814230793829/6692387667</string>
 </resources>

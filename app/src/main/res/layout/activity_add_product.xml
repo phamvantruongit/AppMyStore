@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".view.ActivityAddProduct">
+    tools:context=".view.activity.ActivityAddProduct">
 
     <LinearLayout
         android:id="@+id/ln"
@@ -59,7 +60,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
-        <TableRow android:layout_marginTop="15dp">
+        <TableRow android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -80,7 +81,7 @@
                 android:textColor="@color/black" />
         </TableRow>
 
-        <TableRow android:layout_marginTop="15dp">
+        <TableRow android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -101,7 +102,7 @@
         </TableRow>
 
 
-        <TableRow android:layout_marginTop="15dp">
+        <TableRow android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -120,7 +121,7 @@
 
         </TableRow>
 
-        <TableRow android:layout_marginTop="15dp">
+        <TableRow android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -135,12 +136,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:background="@drawable/boder_item_top"
-                android:inputType="number"
+                android:maxLength="20"
+                android:inputType="numberDecimal"
+                android:digits="0123456789.,"
                 android:padding="5dp"
                 android:singleLine="true" />
         </TableRow>
 
-        <TableRow android:layout_marginTop="15dp">
+        <TableRow android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -155,13 +158,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:background="@drawable/boder_item_top"
-                android:inputType="number"
+                android:maxLength="20"
+                android:inputType="numberDecimal"
+                android:digits="0123456789.,"
                 android:padding="5dp"
                 android:singleLine="true" />
         </TableRow>
 
 
-        <TableRow android:layout_marginTop="15dp">
+        <TableRow android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -181,7 +186,7 @@
                 android:singleLine="true" />
         </TableRow>
 
-        <TableRow android:layout_marginTop="15dp">
+        <TableRow android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -200,25 +205,42 @@
                 android:singleLine="true" />
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp">
-
-            <Button
-                android:id="@+id/btnThemMoi"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Thêm mới" />
-
-            <Button
-                android:id="@+id/btnHuyBo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Hủy bỏ" />
-        </TableRow>
     </TableLayout>
+    <View
+        android:id="@+id/view"
+        android:layout_margin="10dp"
+        android:layout_below="@id/tb"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <com.google.android.gms.ads.AdView
+        android:layout_below="@id/view"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_home_footer"/>
 
+    <LinearLayout
+        android:layout_marginBottom="7dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       >
+
+        <Button
+            android:id="@+id/btnThemMoi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Thêm mới" />
+
+        <Button
+            android:id="@+id/btnHuyBo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Hủy bỏ" />
+    </LinearLayout>
 </RelativeLayout>

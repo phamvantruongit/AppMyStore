@@ -1,4 +1,4 @@
-package vn.com.phamtruongit.appmystore.view;
+package vn.com.phamtruongit.appmystore.view.activity;
 
 
 import android.Manifest;
@@ -11,7 +11,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +22,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.notbytes.barcode_reader.BarcodeReaderActivity;
 
@@ -29,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +73,7 @@ public class ActivityAddProduct extends AppCompatActivity {
     Product product=null;
 
     private static final int BARCODE_READER_ACTIVITY_REQUEST = 1208;
+    private AdView mAdView;
 
 
     @Override
@@ -114,6 +122,16 @@ public class ActivityAddProduct extends AppCompatActivity {
             String giaban=edGiaBan.getText().toString();
             String soluong=edSoLuong.getText().toString();
             String size=edSize.getText().toString();
+
+
+            edGiaNhap.addTextChangedListener(new NumberTextWatcherForThousand(edGiaNhap));
+
+            NumberTextWatcherForThousand numberTextWatcherForThousand = new NumberTextWatcherForThousand();
+            numberTextWatcherForThousand.trimCommaOfString(edGiaNhap.getText().toString());
+
+            edGiaBan.addTextChangedListener(new NumberTextWatcherForThousand(edGiaBan));
+            numberTextWatcherForThousand.trimCommaOfString(edGiaBan.getText().toString());
+
 
             if(TextUtils.isEmpty(tensp)||TextUtils.isEmpty(gianhap)||TextUtils.isEmpty(giaban)||TextUtils.isEmpty(soluong)){
                 Toast.makeText(this, "Nhập đầy đủ thông tin ", Toast.LENGTH_SHORT).show();
@@ -184,6 +202,45 @@ public class ActivityAddProduct extends AppCompatActivity {
 
     }
 
+    private void ads(){
+        mAdView = (AdView) findViewById(R.id.adView);
+        mAdView.setAdSize(AdSize.BANNER);
+        mAdView.setAdUnitId(getString(R.string.banner_home_footer));
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                // Check the LogCat to get your test device ID
+                .addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB")
+                .build();
+
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+            }
+
+            @Override
+            public void onAdClosed() {
+                Toast.makeText(getApplicationContext(), "Ad is closed!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                Toast.makeText(getApplicationContext(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                Toast.makeText(getApplicationContext(), "Ad left application!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdOpened() {
+                super.onAdOpened();
+            }
+        });
+        mAdView.loadAd(adRequest);
+    }
+
     private void launchBarCodeActivity() {
         Intent launchIntent = BarcodeReaderActivity.getLaunchIntent(this, true, false);
         startActivityForResult(launchIntent, BARCODE_READER_ACTIVITY_REQUEST);
@@ -218,4 +275,101 @@ public class ActivityAddProduct extends AppCompatActivity {
         }
 
     }
+
+    public class NumberTextWatcherForThousand implements TextWatcher {
+
+        EditText editText;
+
+        public NumberTextWatcherForThousand() {
+        }
+
+        public NumberTextWatcherForThousand(EditText editText) {
+            this.editText = editText;
+
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            try {
+                editText.removeTextChangedListener(this);
+                String value = editText.getText().toString();
+
+
+                if (value != null && !value.equals("")) {
+
+                    if (value.startsWith(".")) {
+                        editText.setText("0.");
+                    }
+                    if (value.startsWith("0") && !value.startsWith("0.")) {
+                        editText.setText("");
+
+                    }
+
+
+                    String str = editText.getText().toString().replaceAll(",", "");
+                    if (!value.equals(""))
+                        editText.setText(getDecimalFormattedString(str));
+                    editText.setSelection(editText.getText().toString().length());
+                }
+                editText.addTextChangedListener(this);
+                return;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                editText.addTextChangedListener(this);
+            }
+
+        }
+
+        public String getDecimalFormattedString(String value) {
+            StringTokenizer lst = new StringTokenizer(value, ".");
+            String str1 = value;
+            String str2 = "";
+            if (lst.countTokens() > 1) {
+                str1 = lst.nextToken();
+                str2 = lst.nextToken();
+            }
+            String str3 = "";
+            int i = 0;
+            int j = -1 + str1.length();
+            if (str1.charAt(-1 + str1.length()) == '.') {
+                j--;
+                str3 = ".";
+            }
+            for (int k = j; ; k--) {
+                if (k < 0) {
+                    if (str2.length() > 0)
+                        str3 = str3 + "." + str2;
+                    return str3;
+                }
+                if (i == 3) {
+                    str3 = "," + str3;
+                    i = 0;
+                }
+                str3 = str1.charAt(k) + str3;
+                i++;
+            }
+
+        }
+
+        public String trimCommaOfString(String string) {
+            if (string.contains(",")) {
+                return string.replace(",", "");
+            } else {
+                return string;
+            }
+
+        }
+    }
+
 }

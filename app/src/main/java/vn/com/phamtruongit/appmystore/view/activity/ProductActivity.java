@@ -1,4 +1,4 @@
-package vn.com.phamtruongit.appmystore.view;
+package vn.com.phamtruongit.appmystore.view.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -6,11 +6,15 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 import butterknife.BindView;
 import vn.com.phamtruongit.appmystore.ApplicationMyStore;
@@ -95,4 +99,103 @@ public  class ProductActivity  extends BaseActivity implements OnClickItem {
             dialog.dismiss();
         });
     }
+
+    public class NumberTextWatcherForThousand implements TextWatcher {
+
+        EditText editText;
+
+        public NumberTextWatcherForThousand() {
+        }
+
+        public NumberTextWatcherForThousand(EditText editText) {
+            this.editText = editText;
+
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            try {
+                editText.removeTextChangedListener(this);
+                String value = editText.getText().toString();
+
+
+                if (value != null && !value.equals("")) {
+
+                    if (value.startsWith(".")) {
+                        editText.setText("0.");
+                    }
+                    if (value.startsWith("0") && !value.startsWith("0.")) {
+                        editText.setText("");
+
+                    }
+
+
+                    String str = editText.getText().toString().replaceAll(",", "");
+                    if (!value.equals(""))
+                        editText.setText(getDecimalFormattedString(str));
+                    editText.setSelection(editText.getText().toString().length());
+                }
+                editText.addTextChangedListener(this);
+                return;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                editText.addTextChangedListener(this);
+            }
+
+        }
+
+        public String getDecimalFormattedString(String value) {
+            StringTokenizer lst = new StringTokenizer(value, ".");
+            String str1 = value;
+            String str2 = "";
+            if (lst.countTokens() > 1) {
+                str1 = lst.nextToken();
+                str2 = lst.nextToken();
+            }
+            String str3 = "";
+            int i = 0;
+            int j = -1 + str1.length();
+            if (str1.charAt(-1 + str1.length()) == '.') {
+                j--;
+                str3 = ".";
+            }
+            for (int k = j; ; k--) {
+                if (k < 0) {
+                    if (str2.length() > 0)
+                        str3 = str3 + "." + str2;
+                    return str3;
+                }
+                if (i == 3) {
+                    str3 = "," + str3;
+                    i = 0;
+                }
+                str3 = str1.charAt(k) + str3;
+                i++;
+            }
+
+        }
+
+        public String trimCommaOfString(String string) {
+            if (string.contains(",")) {
+                return string.replace(",", "");
+            } else {
+                return string;
+            }
+
+        }
+    }
+
+
+
 }

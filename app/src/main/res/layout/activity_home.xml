@@ -27,22 +27,19 @@
             android:src="@drawable/ic_menu_camera" />
     </RelativeLayout>
 
-    <FrameLayout
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_product"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="48dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <include
+        android:id="@+id/navigation"
+        layout="@layout/element_bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
 
-        <include
-            android:id="@+id/navigation"
-            layout="@layout/element_bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom" />
-    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

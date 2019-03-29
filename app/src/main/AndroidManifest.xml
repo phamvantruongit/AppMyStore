@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="vn.com.phamtruongit.appmystore">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".ApplicationMyStore"
         android:allowBackup="true"
@@ -13,44 +15,46 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ActivityAddProduct"
-            android:theme="@style/AppThemeNoActionBar"
-            />
+        <activity android:name=".view.activity.ActivityAddProduct" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".view.HomeActivity"
-            android:label="@string/title_home">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            android:name=".view.activity.HomeActivity"
+            android:label="@string/home"
+            android:screenOrientation="portrait">
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
-
         <activity
-            android:screenOrientation="portrait"
-            android:name=".view.CategoryActivity"
-            android:label="@string/title_category" />
+            android:name=".view.activity.CategoryActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:label="@string/title_category"
+            android:screenOrientation="portrait" />
         <activity
+            android:name=".view.activity.ProductActivity"
             android:label="@string/title_products"
-            android:screenOrientation="portrait"
-            android:name=".view.ProductActivity"
-            />
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".view.MoreActivity"
-            android:label="@string/title_more" />
-        <activity android:name=".view.SplashActivity"
+            android:name=".view.activity.MoreActivity"
+            android:label="@string/title_more"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoActionBar"
-            >
+            android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.activity.SellProductActivity"
+            android:label="@string/sell"
+            ></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package vn.com.phamtruongit.appmystore.view;
+package vn.com.phamtruongit.appmystore.view.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,10 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import vn.com.phamtruongit.appmystore.R;
@@ -61,7 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
         Intent intent;
         int itemId = item.getItemId();
         if (itemId == R.id.navigation_home) {
-            intent= new Intent(this, HomeActivity.class);
+            intent= new Intent(this, SellProductActivity.class);
             startActivity(intent);
 
         } else if (itemId == R.id.navigation_category) {

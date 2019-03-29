@@ -1,4 +1,4 @@
-package vn.com.phamtruongit.appmystore.view;
+package vn.com.phamtruongit.appmystore.view.activity;
 
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -23,6 +22,7 @@ import vn.com.phamtruongit.appmystore.R;
 import vn.com.phamtruongit.appmystore.adapter.AdapterLoaiSP;
 import vn.com.phamtruongit.appmystore.data.TypeProduct;
 import vn.com.phamtruongit.appmystore.view.Interface.OnClickItem;
+import vn.com.phamtruongit.appmystore.view.activity.BaseActivity;
 
 
 public class CategoryActivity extends BaseActivity implements OnClickItem {

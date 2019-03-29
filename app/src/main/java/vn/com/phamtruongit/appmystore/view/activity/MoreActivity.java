@@ -1,12 +1,14 @@
-package vn.com.phamtruongit.appmystore.view;
+package vn.com.phamtruongit.appmystore.view.activity;
 
 import android.content.Intent;
 import android.widget.TextView;
 import butterknife.BindView;
 import vn.com.phamtruongit.appmystore.R;
+import vn.com.phamtruongit.appmystore.view.activity.ActivityAddProduct;
+import vn.com.phamtruongit.appmystore.view.activity.BaseActivity;
 
 
-public class MoreActivity extends BaseActivity  {
+public class MoreActivity extends BaseActivity {
 
     @BindView(R.id.tvThemSP)
     TextView tvThemSP;

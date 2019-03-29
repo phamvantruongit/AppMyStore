@@ -1,4 +1,4 @@
-package vn.com.phamtruongit.appmystore.view;
+package vn.com.phamtruongit.appmystore.view.activity;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -17,13 +17,14 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this,HomeActivity.class));
+                startActivity(new Intent(SplashActivity.this,SellProductActivity.class));
                 overridePendingTransition(R.anim.anim_slide_in_right,
                         R.anim.anim_slide_out_right);
                 finish();
 
             }
         },1500);
+
 
     }
 }
