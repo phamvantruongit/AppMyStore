@@ -7,10 +7,10 @@
     android:background="@color/white"
     tools:context=".view.activity.SellProductActivity">
     <android.support.v7.widget.RecyclerView
+        app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/rv_product"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="47dp" />
+        android:layout_height="wrap_content" />
 
     <include
         android:id="@+id/navigation"

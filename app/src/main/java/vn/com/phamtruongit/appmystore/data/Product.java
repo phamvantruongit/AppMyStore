@@ -6,8 +6,10 @@ import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
+
 @Entity
-public class Product implements Parcelable {
+public class Product implements Parcelable  {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -81,4 +83,5 @@ public class Product implements Parcelable {
         dest.writeString(date);
         dest.writeInt(id_type_product);
     }
+
 }

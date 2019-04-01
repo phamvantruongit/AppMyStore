@@ -30,9 +30,9 @@
         </activity>
         <activity
             android:name=".view.activity.CategoryActivity"
-            android:windowSoftInputMode="adjustPan"
             android:label="@string/title_category"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.activity.ProductActivity"
             android:label="@string/title_products"
@@ -52,9 +52,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.SellProductActivity"
-            android:label="@string/sell"
-            ></activity>
+        <activity
+            android:name=".view.activity.SellProductActivity"
+            android:label="@string/sell" />
+        <activity
+            android:theme="@style/AppThemeNoActionBar"
+            android:name=".view.activity.SearchActivity"/>
     </application>
 
 </manifest>
