@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -68,7 +69,7 @@ public class ActivityAddProduct extends AppCompatActivity {
     @BindView(R.id.nice_spinner)
     NiceSpinner nice_spinner;
 
-    private String code="";
+    private String code="" , barcode="";
     private int id_type=1;
     Product product=null;
 
@@ -98,6 +99,8 @@ public class ActivityAddProduct extends AppCompatActivity {
             edGiaBan.setText(products.price_out+"");
             edSoLuong.setText(products.quantity+"");
             edSize.setText(products.size!=null  ? products.size : "");
+            edMaVach.setText(products.code!=null ? products.code :"");
+            btnThemMoi.setText(getString(R.string.edit_product));
         }
 
         List<String> list=new ArrayList<>();
@@ -116,7 +119,6 @@ public class ActivityAddProduct extends AppCompatActivity {
 
 
         btnThemMoi.setOnClickListener( v-> {
-            String mavach=edMaVach.getText().toString();
             String tensp=edTenSP.getText().toString();
             String gianhap=edGiaNhap.getText().toString();
             String giaban=edGiaBan.getText().toString();
@@ -152,8 +154,8 @@ public class ActivityAddProduct extends AppCompatActivity {
 
 
             Product product=new Product();
-            if(!TextUtils.isEmpty(mavach)){
-                product.code=mavach;
+            if(!TextUtils.isEmpty(barcode)){
+                product.code=barcode;
             }
             product.name=tensp;
             product.price_in=GiaNhap;
@@ -165,7 +167,15 @@ public class ActivityAddProduct extends AppCompatActivity {
            product.date=strnowtime;
            product.id_type_product=id_type;
            Log.d("ID",id_type+"");
-           ApplicationMyStore.db.productDao().insertProduct(product);
+
+           if(products!=null){
+               ApplicationMyStore.db.productDao().updateProduct(product.code,product.name,product.size,product.quantity,product.price_in,product.price_out,product.date,product.id_type_product,product.id);
+           }
+           else {
+               ApplicationMyStore.db.productDao().insertProduct(product);
+           }
+
+           reset();
 
         });
 
@@ -199,7 +209,18 @@ public class ActivityAddProduct extends AppCompatActivity {
             }
             launchBarCodeActivity();
         });
+        //ads();
 
+    }
+
+    private void reset(){
+        edMaVach.setText("");
+        edTenSP.setText("");
+        edTenSP.requestFocus();
+        edGiaNhap.setText("");
+        edGiaBan.setText("");
+        edSoLuong.setText("");
+        edSize.setText("");
     }
 
     private void ads(){
@@ -207,10 +228,13 @@ public class ActivityAddProduct extends AppCompatActivity {
         mAdView.setAdSize(AdSize.BANNER);
         mAdView.setAdUnitId(getString(R.string.banner_home_footer));
 
+        String android_id = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 // Check the LogCat to get your test device ID
-                .addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB")
+                .addTestDevice(android_id)
                 .build();
 
         mAdView.setAdListener(new AdListener() {
@@ -271,9 +295,14 @@ public class ActivityAddProduct extends AppCompatActivity {
 
         if (requestCode == BARCODE_READER_ACTIVITY_REQUEST && data != null) {
             Barcode barcode = data.getParcelableExtra(BarcodeReaderActivity.KEY_CAPTURED_BARCODE);
+            this.barcode=barcode.rawValue;
             edMaVach.setText(barcode.rawValue);
         }
 
+    }
+
+    public void OpenQrcode(View view) {
+        launchBarCodeActivity();
     }
 
     public class NumberTextWatcherForThousand implements TextWatcher {

@@ -14,7 +14,6 @@ public interface ProductDao {
     @Query("SELECT * FROM Product ")
     List<Product> getListProduct();
 
-    //"SELECT * FROM BookContentEntity where id in (:id) "
 
     @Query("SELECT *  FROM Product  WHERE  name LIKE :name ")
     List<Product> searhProduct(String name);
@@ -25,4 +24,8 @@ public interface ProductDao {
 
     @Query("DELETE FROM Product where id in (:id)")
     void deleteProduct(int id);
+
+
+    @Query("UPDATE Product SET code = :code , name=:name, size=:size,quantity=:quantity, price_in=:price_in,price_out=:price_out ,date=:date, id_type_product=:id_type_product WHERE id =:id")
+    void updateProduct(String code , String name , String size , int quantity , double price_in , double price_out ,String date , int id_type_product ,int id);
 }

@@ -9,6 +9,7 @@
 
     <LinearLayout
         android:id="@+id/ln"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -56,7 +57,6 @@
         android:id="@+id/tb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ln"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
@@ -70,6 +70,7 @@
                 android:text="Mã vạch" />
 
             <EditText
+                android:layout_marginLeft="10dp"
                 android:id="@+id/edMaVach"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -79,6 +80,13 @@
                 android:padding="5dp"
                 android:singleLine="true"
                 android:textColor="@color/black" />
+
+            <ImageView
+                android:onClick="OpenQrcode"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/barcode" />
         </TableRow>
 
         <TableRow android:layout_marginTop="10dp">
@@ -214,12 +222,12 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <com.google.android.gms.ads.AdView
+        android:visibility="gone"
         android:layout_below="@id/view"
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        ads:adSize="BANNER"
         ads:adUnitId="@string/banner_home_footer"/>
 
     <LinearLayout
